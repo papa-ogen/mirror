@@ -1,0 +1,1 @@
+ref: https://github.com/papa-ogen/MagicMirror/blob/master/src/js/mmSettings.es2015.js
