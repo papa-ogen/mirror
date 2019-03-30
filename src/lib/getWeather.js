@@ -3,16 +3,13 @@ import { getData } from './getData'
 
 dotenv()
 
-const weatherConfig = {
-  apiKey: process.env.WEATHER_API_KEY,
-  apiUrl: process.env.WEATHER_URL,
-  forecastUrl: process.env.WEATHER_FORECAST_URL,
-  lat: "59.3833",
-  lon: "17.8333"
-}
+const apiKey = process.env.WEATHER_API_KEY
+const apiUrl = process.env.WEATHER_URL
+const forecastUrl = process.env.WEATHER_FORECAST_URL
+const lat = "59.3833"
+const lon = "17.8333"
 
-const url = 'http://api.openweathermap.org/data/2.5/weather'
-const weatherUrl = `${url}?lat=${weatherConfig.lat}&lon=${weatherConfig.lon}&appid=${weatherConfig.apiKey}`
+const weatherUrl = `${apiUrl}?lat=${lat}&lon=${lon}&appid=${apiKey}`
 
 export default async function() {
   return await getData(weatherUrl)
