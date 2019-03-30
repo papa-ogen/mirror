@@ -1,7 +1,8 @@
 import { config as dotenv } from 'dotenv'
-import cors from 'cors'
 import express from 'express';
-import getWeather from './lib/getWeather'
+import cors from 'cors'
+import './lib/cron'
+import { getWeather } from './lib/weather'
 
 dotenv()
 

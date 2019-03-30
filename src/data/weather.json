@@ -1,0 +1,44 @@
+{
+  "data": {
+    "coord": {
+      "lon": 17.83,
+        "lat": 59.38
+    },
+    "weather": [
+      {
+        "id": 500,
+        "main": "Rain",
+        "description": "light rain",
+        "icon": "10n"
+      }
+    ],
+      "base": "stations",
+        "main": {
+      "temp": 280.61,
+        "pressure": 1004,
+          "humidity": 70,
+            "temp_min": 279.26,
+              "temp_max": 282.04
+    },
+    "visibility": 10000,
+      "wind": {
+      "speed": 5.7,
+        "deg": 230
+    },
+    "clouds": {
+      "all": 92
+    },
+    "dt": 1553978394,
+      "sys": {
+      "type": 1,
+        "id": 1788,
+          "message": 0.0052,
+            "country": "SE",
+              "sunrise": 1553919713,
+                "sunset": 1553966663
+    },
+    "id": 2678528,
+      "name": "Skälby",
+        "cod": 200
+  }
+}
