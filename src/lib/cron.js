@@ -14,7 +14,7 @@ export async function runCron() {
   console.log('Done!', weather);
 }
 
-cron.schedule(`0 6 * * *`, () => {
+cron.schedule(`0 */6 * * *`, () => {
   console.log(`⏲️ RUNNING THE CRON`);
   runCron();
 });

@@ -22,12 +22,11 @@ io.on('connection', () => {
   console.log('a user is connected...')
 })
 
-cron.schedule(`5 6 * * *`, () => {
+cron.schedule(`5 */6 * * *`, () => {
   const { weather } = db.value();
   console.log(`⏲️ RUNNING THE CRON SENDING WEATHER`);
   io.emit('weather-response', weather[0]);
 });
-
 
 http.listen(process.env.PORT, () => {
   console.log(`Example App running on port http://localhost:${process.env.PORT}`);
