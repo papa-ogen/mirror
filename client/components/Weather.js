@@ -11,7 +11,6 @@ export default function Weather() {
 
   useEffect(() => {
     socket.on('weather-response', payload => {
-      console.log('?', payload)
       setWeather(payload);
     });
   }, [weather]);
