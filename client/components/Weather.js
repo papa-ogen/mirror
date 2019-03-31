@@ -3,8 +3,6 @@ import socket from '../socket';
 import { distanceInWords } from 'date-fns';
 import sv from 'date-fns/locale/sv'
 
-
-
 export default function Weather() {
   const [weather, setWeather] = useState({});
   const lastFetched = weather.now ? distanceInWords(new Date(weather.now), new Date(), { locale: sv }) : ''

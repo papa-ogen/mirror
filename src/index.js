@@ -4,6 +4,7 @@ import cors from 'cors'
 import './lib/cron'
 import db from './lib/db';
 import cron from 'node-cron';
+import { getCommute } from './lib/commute'
 
 const app = express();
 const http = require('http').Server(app);
@@ -18,12 +19,19 @@ app.get(`/weather`, async (req, res, next) => {
   res.json(weather[0]);
 });
 
+app.get(`/commute`, async (req, res, next) => {
+  const { commutes } = await getCommute()
+  res.json(commutes.ResponseData);
+});
+
+// Todo: move this
 io.on('connection', () => {
   console.log('a user is connected...')
   const { weather } = db.value();
   io.emit('weather-response', weather[0]);
 })
 
+// Todo: move this
 cron.schedule(`5 */6 * * *`, () => {
   const { weather } = db.value();
   console.log(`⏲️ RUNNING THE CRON SENDING WEATHER`);
