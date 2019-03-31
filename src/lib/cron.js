@@ -1,4 +1,5 @@
 import cron from 'node-cron';
+import db from './db';
 import { getWeather } from './weather'
 
 export async function runCron() {
@@ -10,10 +11,10 @@ export async function runCron() {
     .push(weather)
     .write();
 
-  console.log('Done!');
+  console.log('Done!', weather);
 }
 
-cron.schedule(`0,30 * * * *`, () => {
+cron.schedule(`0 6 * * *`, () => {
   console.log(`⏲️ RUNNING THE CRON`);
   runCron();
 });

@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "nodemon -r esm index.js --ignore db.json",
+    "dev": "nodemon -r esm index.js --ignore data",
     "test": "tape 'lib/**/*.test.js' | tap-spec"
   },
   "devDependencies": {
