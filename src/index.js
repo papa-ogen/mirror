@@ -20,6 +20,8 @@ app.get(`/weather`, async (req, res, next) => {
 
 io.on('connection', () => {
   console.log('a user is connected...')
+  const { weather } = db.value();
+  io.emit('weather-response', weather[0]);
 })
 
 cron.schedule(`5 */6 * * *`, () => {
@@ -29,5 +31,5 @@ cron.schedule(`5 */6 * * *`, () => {
 });
 
 http.listen(process.env.PORT, () => {
-  console.log(`Example App running on port http://localhost:${process.env.PORT}`);
+  console.log(`App running on port http://localhost:${process.env.PORT}`);
 });
