@@ -1,19 +1,25 @@
-import  test from 'tape'
-import {} from './commute'
-import commutesData, { allowedTripTypes } from '../test_data/commutes'
+import test from 'tape'
+import { filterAllowedTripTypes } from './commute'
+import commutesData, { allowedTripTypes, tripDetails } from '../test_data/commutes'
 
 test('Filter trip types', function (t) {
   const ALLOWED_TRIP_TYPES = ['Metros', 'Buses', 'Trains']
 
-  const commutes = Object.keys(commutesData).reduce((acc, key) => {
-    if(ALLOWED_TRIP_TYPES.includes(key)) {
-      acc[key] = commutesData[key]
-    }
-    console.log(acc)
-    return acc
-  }, {})
+  const commutes = filterAllowedTripTypes(commutesData, ALLOWED_TRIP_TYPES)
 
   t.deepEqual(commutes, allowedTripTypes);
 
   t.end()
 });
+
+// test('Filter trip details', function (t) {
+//   const commutes = {
+//     Metros: [],
+//     Buses: ,
+//     Trains: []
+//   }
+
+//   t.deepEqual(commutes, tripDetails);
+
+//   t.end()
+// });

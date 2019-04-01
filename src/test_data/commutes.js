@@ -144,3 +144,50 @@ export const allowedTripTypes = {
     ],
     "Trains": []
 }
+
+export const tripDetails = {
+    "Metros": [],
+    "Buses": [
+        {
+            "StopAreaName": "Tellusvägen",
+            "LineNumber": "541",
+            "TransportMode": "BUS",
+            "Destination": "Jakobsbergs station",
+            "DisplayTime": "6 min",
+            "TimeTabledDateTime": "2019-03-31T21:38:27",
+            "ExpectedDateTime": "2019-03-31T21:43:03",
+            "Deviations": null
+        },
+        {
+            "StopAreaName": "Tellusvägen",
+            "LineNumber": "541",
+            "TransportMode": "BUS",
+            "Destination": "Vällingby",
+            "DisplayTime": "21:44",
+            "TimeTabledDateTime": "2019-03-31T21:44:53",
+            "ExpectedDateTime": "2019-03-31T21:44:53",
+            "Deviations": null
+        },
+        {
+            "StopAreaName": "Tellusvägen",
+            "LineNumber": "541",
+            "TransportMode": "BUS",
+            "Destination": "Jakobsbergs station",
+            "DisplayTime": "17 min",
+            "TimeTabledDateTime": "2019-03-31T21:54:27",
+            "ExpectedDateTime": "2019-03-31T21:54:27",
+            "Deviations": null
+        },
+        {
+            "StopAreaName": "Tellusvägen",
+            "LineNumber": "541",
+            "TransportMode": "BUS",
+            "Destination": "Vällingby",
+            "DisplayTime": "21:59",
+            "TimeTabledDateTime": "2019-03-31T21:59:53",
+            "ExpectedDateTime": "2019-03-31T21:59:53",
+            "Deviations": null
+        }
+    ],
+    "Trains": []
+}
