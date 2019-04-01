@@ -11,17 +11,23 @@ const ALLOWED_TRIP_TYPES = ['Metros', 'Buses', 'Trains']
 
 export async function getCommute() {
   const requestUrl = `${apiUrl}?key=${apiKey}&siteid=${siteId}`
-  const commutes = await getData(requestUrl)
+  const commutesData = await getData(requestUrl)
+  const commutes = Object.keys(commutesData).reduce((acc, key) => {
+    if (ALLOWED_TRIP_TYPES.includes(key)) {
+      acc[key] = commutesData[key]
+    }
+    return acc
+  }, {})
+
   return {
-   commutes
+    commutes
   }
 }
 
 export async function getCommuteSiteIds(searchstring) {
   const siteIdrequestUrl = `${siteIdUrl}?key=${apiKey}&searchstring=${searchstring}`
-  console.log(siteIdrequestUrl)
   const data = await getData(siteIdrequestUrl)
   return {
-   data
+    data
   }
 }

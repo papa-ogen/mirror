@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "nodemon -r esm index.js --ignore data",
-    "test": "tape 'lib/**/*.test.js' | tap-spec"
+    "test": "tape -r esm 'lib/**/*.test.js' | tap-spec"
   },
   "devDependencies": {
     "nodemon": "^1.18.10",

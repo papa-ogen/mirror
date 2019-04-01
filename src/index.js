@@ -28,14 +28,14 @@ app.get(`/commute`, async (req, res, next) => {
 io.on('connection', () => {
   console.log('a user is connected...')
   const { weather } = db.value();
-  io.emit('weather-response', weather[0]);
+  io.emit('weather-response', weather[weather.length-1]);
 })
 
 // Todo: move this
 cron.schedule(`5 */6 * * *`, () => {
   const { weather } = db.value();
   console.log(`⏲️ RUNNING THE CRON SENDING WEATHER`);
-  io.emit('weather-response', weather[0]);
+  io.emit('weather-response', weather[weather.length-1]);
 });
 
 http.listen(process.env.PORT, () => {
