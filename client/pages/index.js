@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import Weather from '../components/Weather';
+import Commute from '../components/Commute';
 
 function IndexPage() {
   return (
@@ -9,6 +10,7 @@ function IndexPage() {
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <Weather />
+      <Commute />
     </div>
   )
 }
