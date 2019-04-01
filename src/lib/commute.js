@@ -21,9 +21,24 @@ export const filterAllowedTripTypes = (commutes, allowedTripTypes) => {
 export const filterCommutes = (commutes) => {
   return Object.keys(commutes).reduce((acc, key) => {
     acc[key] = commutes[key].map((value) => {
+      const { StopAreaName,
+        LineNumber,
+        TransportMode,
+        Destination,
+        DisplayTime,
+        TimeTabledDateTime,
+        ExpectedDateTime,
+        Deviations
+      } = value
       return {
-        time: value.prop1,
-        type: value.prop2,
+        StopAreaName,
+        LineNumber,
+        TransportMode,
+        Destination,
+        DisplayTime,
+        TimeTabledDateTime,
+        ExpectedDateTime,
+        Deviations
       }
     })
     return acc

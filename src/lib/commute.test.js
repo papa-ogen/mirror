@@ -1,5 +1,5 @@
 import test from 'tape'
-import { filterAllowedTripTypes } from './commute'
+import { filterAllowedTripTypes, filterCommutes } from './commute'
 import commutesData, { allowedTripTypes, tripDetails } from '../test_data/commutes'
 
 test('Filter trip types', function (t) {
@@ -12,14 +12,10 @@ test('Filter trip types', function (t) {
   t.end()
 });
 
-// test('Filter trip details', function (t) {
-//   const commutes = {
-//     Metros: [],
-//     Buses: ,
-//     Trains: []
-//   }
+test('Filter trip details', function (t) {
+  const filteredCommutes = filterCommutes(allowedTripTypes)
 
-//   t.deepEqual(commutes, tripDetails);
+  t.deepEqual(filteredCommutes, tripDetails);
 
-//   t.end()
-// });
+  t.end()
+});
