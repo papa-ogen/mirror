@@ -21,7 +21,7 @@ app.get(`/weather`, async (req, res, next) => {
 
 app.get(`/commute`, async (req, res, next) => {
   const { commutes } = await getCommute()
-  res.json(commutes.ResponseData);
+  res.json(commutes);
 });
 
 // Todo: move this

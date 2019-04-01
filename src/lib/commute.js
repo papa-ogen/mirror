@@ -47,8 +47,8 @@ export const filterCommutes = (commutes) => {
 export async function getCommute() {
   const requestUrl = `${apiUrl}?key=${apiKey}&siteid=${siteId}`
   const commutesData = await getData(requestUrl)
-  const commutes = filterAllowedTripTypes(commutesData, ALLOWED_TRIP_TYPES)
-
+  const filteredCommutes = filterAllowedTripTypes(commutesData.ResponseData, ALLOWED_TRIP_TYPES)
+  const commutes = filterCommutes(filteredCommutes)
   return {
     commutes
   }
