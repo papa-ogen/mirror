@@ -20,7 +20,7 @@ export default function Commute() {
   }
 
   return (
-    <section>
+    <section className='module'>
       <h1>Resa</h1>
       <h3>{commutes['Buses'][0].StopAreaName}</h3>
       <h3>Ska gå {commutes['Buses'][0].TimeTabledDateTime}</h3>

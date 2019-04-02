@@ -14,7 +14,7 @@ export default function Weather() {
   }, [weather]);
 
   return (
-    <section>
+    <section className='module'>
       <h1>Väder</h1>
       <h3>{weather.temp}°</h3>
       <p>{weather.weather}</p>
