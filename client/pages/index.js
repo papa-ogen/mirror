@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import Weather from '../components/Weather';
 import Commute from '../components/Commute';
+import Clock from '../components/Clock';
 
 function IndexPage() {
   return (
@@ -15,6 +16,7 @@ function IndexPage() {
         <Weather />
       </div>
       <div className='main-item'>
+        <Clock />
       </div>
       <div className='main-item'>
         <Commute />

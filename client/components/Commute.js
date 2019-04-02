@@ -16,10 +16,11 @@ export default function Commute() {
   }, {});
 
   if(!commutes['Buses']) {
-    timeTableLeaving = commutes['Buses'] ? distanceInWords(new Date(commutes['Buses'][0].TimeTabledDateTime), new Date(), { locale: sv }) : ''
     return <div>Loading...</div>
   }
 
+  timeTableLeaving = commutes['Buses'] ? distanceInWords(new Date(commutes['Buses'][0].TimeTabledDateTime), new Date(), { locale: sv }) : ''
+  
   return (
     <section className='module'>
       <h1>Resa</h1>

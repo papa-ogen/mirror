@@ -11,7 +11,7 @@ export default function Weather() {
     socket.on('weather-response', payload => {
       setWeather(payload);
     });
-  }, [weather]);
+  }, {});
 
   return (
     <section className='module'>
