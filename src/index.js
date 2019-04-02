@@ -5,6 +5,7 @@ import './lib/cron'
 import db from './lib/db';
 import cron from 'node-cron';
 import { getCommute } from './lib/commute'
+import { getWeather } from './lib/weather'
 
 const app = express();
 const http = require('http').Server(app);
@@ -15,12 +16,19 @@ dotenv()
 app.use(cors());
 
 app.get(`/weather`, async (req, res, next) => {
-  const { weather } = db.value();
-  res.json(weather[0]);
+  const weather = await getWeather()
+  db.get('weather')
+  .push(weather)
+  .write()
+
+  res.json(weather);
 });
 
-app.get(`/commute`, async (req, res, next) => {
+app.get(`/commutes`, async (req, res, next) => {
   const { commutes } = await getCommute()
+  db.get('commutes')
+  .push(commutes)
+  .write()
   res.json(commutes);
 });
 
@@ -28,14 +36,16 @@ app.get(`/commute`, async (req, res, next) => {
 io.on('connection', () => {
   console.log('a user is connected...')
   const { weather } = db.value();
-  io.emit('weather-response', weather[weather.length-1]);
+  weather.reverse()
+  io.emit('weather-response', weather[0]);
 })
 
 // Todo: move this
-cron.schedule(`5 */6 * * *`, () => {
+cron.schedule(`* * * * *`, () => {
   const { weather } = db.value();
+  weather.reverse()
+  io.emit('weather-response', weather[0]);
   console.log(`⏲️ RUNNING THE CRON SENDING WEATHER`);
-  io.emit('weather-response', weather[weather.length-1]);
 });
 
 http.listen(process.env.PORT, () => {
