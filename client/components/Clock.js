@@ -1,32 +1,53 @@
 import { useEffect, useState } from 'react';
-import axios from 'axios'
+import { useTimer } from '../hooks/timer';
+import socket from '../socket';
+
+const months = [
+  'Januari',
+  'Februari',
+  'Mars',
+  'April',
+  'Maj',
+  'Juni',
+  'Juli',
+  'Augusti',
+  'Oktober',
+  'September',
+  'November',
+  'December',
+];
+const weekDays = ['Söndag', 'Måndag', 'Tisdag', 'Onsdag', 'Torsdag', 'Fredag', 'Lördag'];
 
 export default function Clock() {
-  const [namedays, setNamedays] = useState({});
-  async function fetchNamedays() {
-    const res = await axios(`http://localhost:9696/namedays`);
-    setNamedays(res.data);
-  }
+  const [nameday, setNameday] = useState(null);
+
+  const [clock] = useTimer(3000);
 
   useEffect(() => {
-    fetchNamedays();
-  }, {});
+    socket.on('nameday-response', payload => {
+      setNameday(payload);
+    });
+  }, []);
 
-  if(!namedays.length) {
-    return <div>Loading...</div>
+  if (!nameday) {
+    return <div>Loading...</div>;
   }
+
   return (
-<section className="columns mm-clock">
-  <div className="column">
-    <time className="mm-time">
-      <span className="mm-hour">06</span>
-      <span className="mm-clock-divider">:</span>
-      <span className="mm-minute">53</span></time>
-    <footer>
-      <div className="mm-date">Onsdag, April 3</div>
-      <div className="mm-names">{namedays[2]['3.1'].join(',')}</div>
-    </footer>
-  </div>
-</section>
-  )
+    <section className="columns mm-clock">
+      <div className="column">
+        <time className="mm-time">
+          <span className="mm-hour">{clock.hour}</span>
+          <span className="mm-clock-divider">:</span>
+          <span className="mm-minute">{clock.minute}</span>
+        </time>
+        <footer>
+          <div className="mm-date">
+            {weekDays[clock.weekday]}, {months[clock.month]} {clock.date}
+          </div>
+          <div className="mm-names">{nameday.names.join(', ')}</div>
+        </footer>
+      </div>
+    </section>
+  );
 }

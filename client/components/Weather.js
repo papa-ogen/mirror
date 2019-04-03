@@ -4,14 +4,15 @@ import { distanceInWords } from 'date-fns';
 import sv from 'date-fns/locale/sv'
 
 export default function Weather() {
-  const [weather, setWeather] = useState({});
+  const [weather, setWeather] = useState(null);
+  
   useEffect(() => {
     socket.on('weather-response', payload => {
       setWeather(payload);
     });
   }, {});
 
-  if(!weather.temp) return (
+  if(!weather) return (
     <section className='module'>
       No Weather
     </section>
