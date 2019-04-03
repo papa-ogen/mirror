@@ -1,3 +1,26 @@
+html, body {
+  height: 100%;
+}
+
+body {
+  min-height: 100%;
+  font-family: 'Anton', sans-serif;
+  letter-spacing: 2px;
+}
+
+ul, li, ol {
+  margin: 0;
+  padding: 0;
+}
+
+.mm--h1 {
+  font-size: 2rem;
+}
+
+.mm--h3 {
+  font-size: 1.4rem;
+}
+
 .main {
   display: grid;
   grid-template-columns: 240px auto 240px;
@@ -6,4 +29,27 @@
 
 .module {
   text-align: center;
+}
+
+.mm-clock {
+  text-align: center;
+  padding-top: 0.1rem;
+}
+
+.mm-time {
+  font-size: 6rem;
+  line-height: 6rem;
+}
+
+.mm-clock-divider {
+  animation: colorfade 1s linear infinite alternate;
+}
+
+@keyframes colorfade {
+  from {
+    color: #fff;
+  }
+  to {
+    color: #000;
+  }
 }

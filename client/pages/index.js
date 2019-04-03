@@ -9,6 +9,7 @@ function IndexPage() {
       <Head>
         <title>My page title</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        <link href="https://fonts.googleapis.com/css?family=Anton" rel="stylesheet" />
         <link href="/static/index.css" rel="stylesheet" />
       </Head>
 

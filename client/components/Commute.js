@@ -5,7 +5,6 @@ import sv from 'date-fns/locale/sv'
 
 export default function Commute() {
   const [commutes, setCommutes] = useState({});
-  let timeTableLeaving = ''
   async function fetchCommutes() {
     const res = await axios(`http://localhost:9696/commutes`);
     setCommutes(res.data);
@@ -19,8 +18,8 @@ export default function Commute() {
     return <div>Loading...</div>
   }
 
-  timeTableLeaving = commutes['Buses'] ? distanceInWords(new Date(commutes['Buses'][0].TimeTabledDateTime), new Date(), { locale: sv }) : ''
-  
+  const timeTableLeaving = commutes['Buses'] ? distanceInWords(new Date(commutes['Buses'][0].TimeTabledDateTime), new Date(), { locale: sv }) : ''
+
   return (
     <section className='module'>
       <h1>Resa</h1>
