@@ -6,3 +6,10 @@ const db = low(adapter);
 db.defaults({ weather: [], commutes: [] }).write();
 
 export default db;
+
+const namedaysAdapter = new FileSync('data/namedays.json')
+const namedaysDb = low(namedaysAdapter)
+namedaysDb.defaults({ nameDays: [] }).write();
+export {
+  namedaysDb 
+}

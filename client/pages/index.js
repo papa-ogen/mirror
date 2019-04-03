@@ -7,7 +7,7 @@ function IndexPage() {
   return (
     <main className='main'>
       <Head>
-        <title>My page title</title>
+        <title>Magic Mirror</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
         <link href="https://fonts.googleapis.com/css?family=Anton" rel="stylesheet" />
         <link href="/static/index.css" rel="stylesheet" />

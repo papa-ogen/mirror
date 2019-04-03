@@ -2,7 +2,7 @@ import { config as dotenv } from 'dotenv'
 import express from 'express';
 import cors from 'cors'
 import './lib/cron'
-import db from './lib/db';
+import db, { namedaysDb } from './lib/db';
 import cron from 'node-cron';
 import { getCommute } from './lib/commute'
 import { getWeather } from './lib/weather'
@@ -30,6 +30,12 @@ app.get(`/commutes`, async (req, res, next) => {
   .push(commutes)
   .write()
   res.json(commutes);
+});
+
+app.get(`/namedays`, async (req, res, next) => {
+  const { nameDays } = namedaysDb.value();
+  console.log(nameDays)
+  res.json(nameDays);
 });
 
 // Todo: move this
