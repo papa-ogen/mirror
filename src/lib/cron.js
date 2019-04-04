@@ -2,7 +2,7 @@ import cron from 'node-cron';
 import db from './db';
 import { getWeather } from './weather'
 
-export async function runWeatherCron() {
+export async function runWeatherCron(io) {
   const [weather] = await Promise.all([
     getWeather()
   ]);
@@ -11,10 +11,10 @@ export async function runWeatherCron() {
     .push(weather)
     .write();
 
-  console.log('Weather updated!', weather);
+  return await weather
 }
 
-cron.schedule(`0 */6 * * *`, () => {
-  console.log(`RUNNING THE CRON`);
-  runWeatherCron();
-});
+// cron.schedule(`0 */6 * * *`, () => {
+//   console.log(`RUNNING THE CRON`);
+//   runWeatherCron();
+// });

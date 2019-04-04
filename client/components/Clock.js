@@ -28,7 +28,7 @@ const Module = ({ clock, nameday }) => {
 export default function Clock() {
   const [nameday, setNameday] = useState(null);
   const [clock] = useTimer(3000);
-  const [isLoading, fetchedData] = useHttp('http://localhost:9696/namedays/3.7')
+  const [isLoading, fetchedData] = useHttp('http://localhost:9696/namedays/3.7');
 
   useEffect(() => {
     socket.on('nameday-response', payload => {
@@ -40,9 +40,9 @@ export default function Clock() {
     return <div>Loading...</div>;
   }
 
-  if (!isLoading && fetchedData && fetchedData.length > 0) {
-    return <Module clock={clock} nameday={fetchedData} />
+  if (!isLoading && fetchedData && fetchedData.date) {
+    return <Module clock={clock} nameday={fetchedData} />;
   }
 
-  return <Module clock={clock} nameday={nameday} />
-};
+  return <Module clock={clock} nameday={nameday} />;
+}

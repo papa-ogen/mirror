@@ -1,8 +1,8 @@
 import { config as dotenv } from 'dotenv';
 import express from 'express';
 import cors from 'cors';
-import './lib/cron';
 import cron from 'node-cron';
+import { runWeatherCron } from './lib/cron';
 import db, { namedaysDb } from './lib/db';
 import { getCommute } from './lib/commute';
 import { getWeather } from './lib/weather';
@@ -61,9 +61,11 @@ io.on('connection', () => {
 // Todo: move this
 cron.schedule(`0 */6 * * *`, () => {
   const d = new Date();
-  const { weather } = db.value();
-  io.emit('weather-response', weather[weather.length - 1]);
-  console.log(`⏲️ RUNNING THE CRON SENDING WEATHER @${d.getHours()}:${d.getMinutes()}`);
+  const weatherRes = runWeatherCron(io);
+  weatherRes.then(weather => {
+    io.emit('weather-response', weather);
+    console.log(`⏲️ RUNNING THE CRON SENDING WEATHER @${d.getHours()}:${d.getMinutes()} - `, weather);
+  });
 });
 
 // Todo: move this
