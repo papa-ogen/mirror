@@ -1,13 +1,12 @@
 import { useState, useEffect } from 'react';
 
-export const useHttp = (url, dependencies) => {
+export const useHttp = (url, dependencies = []) => {
   const [isLoading, setIsLoading] = useState(false);
   const [fetchedData, setFetchedData] = useState(null);
 
-  //   fetch('https://swapi.co/api/people')
   useEffect(() => {
     setIsLoading(true);
-    console.log('Sending Http request to URL: ' + url);
+    console.log(`Fetching onLoad: ${url}`); // eslint-disable-line
     fetch(url)
       .then(response => {
         if (!response.ok) {
@@ -20,7 +19,7 @@ export const useHttp = (url, dependencies) => {
         setFetchedData(data);
       })
       .catch(err => {
-        console.log(err);
+        console.log(err); // eslint-disable-line
         setIsLoading(false);
       });
   }, dependencies);
