@@ -6,6 +6,10 @@ body {
   min-height: 100%;
   font-family: 'Anton', sans-serif;
   letter-spacing: 2px;
+  background-image: url('/static/images/bg.jpg');
+  background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;  
 }
 
 ul, li, ol {
@@ -43,6 +47,24 @@ ul, li, ol {
 
 .mm-clock-divider {
   animation: colorfade 1s linear infinite alternate;
+}
+
+.weather {
+  position: relative;
+}
+
+.weather img {
+  width: 200px;
+  margin: -68px;
+}
+
+.weather span {
+  position: absolute;
+  bottom: -30px;
+  left: 10px;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.6rem;
+  text-align: left;
 }
 
 @keyframes colorfade {
