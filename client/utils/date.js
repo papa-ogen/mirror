@@ -14,3 +14,13 @@ export const months = [
 ];
 
 export const weekDays = ['Söndag', 'Måndag', 'Tisdag', 'Onsdag', 'Torsdag', 'Fredag', 'Lördag'];
+
+export const formatTime = (h, m) => {
+  const minute = m < 10 ? `0${m}` : m;
+  const hour = h < 10 ? `0${h}` : h;
+
+  return {
+    hour,
+    minute,
+  };
+};

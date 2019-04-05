@@ -2,17 +2,18 @@ import { useEffect, useState } from 'react';
 import { useTimer } from '../hooks/timer';
 import { useHttp } from '../hooks/http';
 import socket from '../socket';
-import { months, weekDays } from '../utils/date';
+import { months, weekDays, formatTime } from '../utils/date';
 
 const Module = ({ clock, nameday }) => {
   const names = nameday ? nameday.names.join(', ') : '';
+  const { hour, minute } = formatTime(clock.hour, clock.minute)
   return (
     <section className="columns mm-clock">
       <div className="column">
         <time className="mm-time">
-          <span className="mm-hour">{clock.hour}</span>
+          <span className="mm-hour">{hour}</span>
           <span className="mm-clock-divider">:</span>
-          <span className="mm-minute">{clock.minute}</span>
+          <span className="mm-minute">{minute}</span>
         </time>
         <footer>
           <div className="mm-date">
