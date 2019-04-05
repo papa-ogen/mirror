@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import { useTimer } from '../hooks/timer';
 import { useHttp } from '../hooks/http';
 import socket from '../socket';
@@ -6,7 +7,7 @@ import { months, weekDays, formatTime } from '../utils/date';
 
 const Module = ({ clock, nameday }) => {
   const names = nameday ? nameday.names.join(', ') : '';
-  const { hour, minute } = formatTime(clock.hour, clock.minute)
+  const { hour, minute } = formatTime(clock.hour, clock.minute);
   return (
     <section className="columns mm-clock">
       <div className="column">
@@ -24,6 +25,11 @@ const Module = ({ clock, nameday }) => {
       </div>
     </section>
   );
+};
+
+Module.propTypes = {
+  clock: PropTypes.object,
+  nameday: PropTypes.object,
 };
 
 export default function Clock() {

@@ -27,12 +27,36 @@ ul, li, ol {
 
 .main {
   display: grid;
-  grid-template-columns: 240px auto 240px;
+  grid-template-columns: 300px auto 300px;
   width: 100%;
 }
 
 .module {
+  position: relative;
   text-align: center;
+}
+
+.module--content {
+  padding-bottom: 0.9rem;
+  text-align: left;
+  font-size: 0.8rem;
+}
+
+.module--content p {
+  margin: 0;
+}
+
+.module--content p:first-child {
+  font-size: 1rem;
+}
+
+.module span {
+  position: absolute;
+  bottom: -30px;
+  left: 10px;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.6rem;
+  text-align: left;
 }
 
 .mm-clock {
@@ -49,22 +73,9 @@ ul, li, ol {
   animation: colorfade 1s linear infinite alternate;
 }
 
-.weather {
-  position: relative;
-}
-
 .weather img {
   width: 200px;
   margin: -68px;
-}
-
-.weather span {
-  position: absolute;
-  bottom: -30px;
-  left: 10px;
-  font-family: 'Courier New', Courier, monospace;
-  font-size: 0.6rem;
-  text-align: left;
 }
 
 @keyframes colorfade {

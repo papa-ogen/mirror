@@ -24,3 +24,11 @@ export const formatTime = (h, m) => {
     minute,
   };
 };
+
+export const formatTimeStamp = timeStamp => {
+  const d = new Date(timeStamp);
+  const hour = d.getHours() < 10 ? `0${d.getHours()}` : d.getHours();
+  const minute = d.getMinutes() < 10 ? `0${d.getMinutes()}` : d.getMinutes();
+
+  return `${hour}:${minute}`;
+};

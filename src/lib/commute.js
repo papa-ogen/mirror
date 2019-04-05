@@ -1,35 +1,35 @@
-import { config as dotenv } from 'dotenv'
-import { getData } from './getData'
+import { config as dotenv } from 'dotenv';
+import { getData } from './getData';
 
-dotenv()
+dotenv();
 
-const apiKey = process.env.TRAFIKLAB_API_KEY
-const apiUrl = process.env.TRAFIKLAB_URL
-const siteIdUrl = process.env.TRAFIKLAB_SITEID_FINDER
-const siteId = 5857
-const ALLOWED_TRIP_TYPES = ['Metros', 'Buses', 'Trains']
+const apiKey = process.env.TRAFIKLAB_API_KEY;
+const apiUrl = process.env.TRAFIKLAB_URL;
+const siteIdUrl = process.env.TRAFIKLAB_SITEID_FINDER;
+const siteId = 5857;
+const ALLOWED_TRIP_TYPES = ['Metros', 'Buses', 'Trains'];
 
-export const filterAllowedTripTypes = (commutes, allowedTripTypes) => {
-  return Object.keys(commutes).reduce((acc, key) => {
+export const filterAllowedTripTypes = (commutes, allowedTripTypes) =>
+  Object.keys(commutes).reduce((acc, key) => {
     if (allowedTripTypes.includes(key)) {
-      acc[key] = commutes[key]
+      acc[key] = commutes[key];
     }
-    return acc
-  }, {})
-}
+    return acc;
+  }, {});
 
-export const filterCommutes = (commutes) => {
-  return Object.keys(commutes).reduce((acc, key) => {
-    acc[key] = commutes[key].map((value) => {
-      const { StopAreaName,
+export const filterCommutes = commutes =>
+  Object.keys(commutes).reduce((acc, key) => {
+    acc[key] = commutes[key].map(value => {
+      const {
+        StopAreaName,
         LineNumber,
         TransportMode,
         Destination,
         DisplayTime,
         TimeTabledDateTime,
         ExpectedDateTime,
-        Deviations
-      } = value
+        Deviations,
+      } = value;
       return {
         StopAreaName,
         LineNumber,
@@ -38,26 +38,25 @@ export const filterCommutes = (commutes) => {
         DisplayTime,
         TimeTabledDateTime,
         ExpectedDateTime,
-        Deviations
-      }
-    })
-    return acc
-  }, {})
-}
+        Deviations,
+      };
+    });
+    return acc;
+  }, {});
 export async function getCommute() {
-  const requestUrl = `${apiUrl}?key=${apiKey}&siteid=${siteId}`
-  const commutesData = await getData(requestUrl)
-  const filteredCommutes = filterAllowedTripTypes(commutesData.ResponseData, ALLOWED_TRIP_TYPES)
-  const commutes = filterCommutes(filteredCommutes)
+  const requestUrl = `${apiUrl}?key=${apiKey}&siteid=${siteId}`;
+  const commutesData = await getData(requestUrl);
+  const filteredCommutes = filterAllowedTripTypes(commutesData.ResponseData, ALLOWED_TRIP_TYPES);
+  const commutes = filterCommutes(filteredCommutes);
   return {
-    commutes
-  }
+    commutes,
+  };
 }
 
 export async function getCommuteSiteIds(searchstring) {
-  const siteIdrequestUrl = `${siteIdUrl}?key=${apiKey}&searchstring=${searchstring}`
-  const data = await getData(siteIdrequestUrl)
+  const siteIdrequestUrl = `${siteIdUrl}?key=${apiKey}&searchstring=${searchstring}`;
+  const data = await getData(siteIdrequestUrl);
   return {
-    data
-  }
+    data,
+  };
 }

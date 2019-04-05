@@ -1,32 +1,65 @@
 import { useEffect, useState } from 'react';
-import axios from 'axios'
 import { distanceInWords } from 'date-fns';
-import sv from 'date-fns/locale/sv'
+import sv from 'date-fns/locale/sv';
+import PropTypes from 'prop-types';
+import { useHttp } from '../hooks/http';
+import socket from '../socket';
+import { formatTimeStamp } from '../utils/date';
+
+const Module = ({ commute }) => {
+  const leavingAt = formatTimeStamp(commute.TimeTabledDateTime);
+  const estimatedLeavingAt = formatTimeStamp(commute.ExpectedDateTime);
+  return (
+    <article className="module--content">
+      <p>
+        Buss {commute.LineNumber} mot {commute.Destination}
+      </p>
+      <p>Ska gå klockan {leavingAt}</p>
+      <p>Förväntad avgång {estimatedLeavingAt}</p>
+      <p>om {commute.DisplayTime}</p>
+    </article>
+  );
+};
+
+Module.propTypes = {
+  commute: PropTypes.object,
+};
 
 export default function Commute() {
-  const [commutes, setCommutes] = useState({});
-  async function fetchCommutes() {
-    const res = await axios(`http://localhost:9696/commutes`);
-    setCommutes(res.data);
-  }
+  const [commutes, setCommutes] = useState(null);
+  const [isLoading, fetchedData] = useHttp('http://localhost:9696/commutes');
 
   useEffect(() => {
-    fetchCommutes();
+    socket.on('commute-response', payload => {
+      setCommutes(payload);
+    });
   }, {});
 
-  if(!commutes['Buses']) {
-    return <div>Loading...</div>
+  if (commutes) {
+    const commutesMarkup = commutes.Buses.map(commute => <Module commute={commute} />);
+    return (
+      <section className="module">
+        <h1>{commutes.Buses[0].StopAreaName}</h1>
+        {commutesMarkup}
+        <span>
+          <b>Senast hämtad...</b> <br /> ... sen
+        </span>
+      </section>
+    );
   }
 
-  const timeTableLeaving = commutes['Buses'] ? distanceInWords(new Date(commutes['Buses'][0].TimeTabledDateTime), new Date(), { locale: sv }) : ''
+  if (!isLoading && fetchedData && fetchedData.Buses) {
+    const commutesMarkup = fetchedData.Buses.map(commute => <Module commute={commute} />);
+    return (
+      <section className="module">
+        <h1>{fetchedData.Buses[0].StopAreaName}</h1>
+        {commutesMarkup}
+        <span>
+          <b>Senast hämtad...</b> <br /> ... sen
+        </span>
+      </section>
+    );
+  }
 
-  return (
-    <section className='module'>
-      <h1>Resa</h1>
-      <h3>{commutes['Buses'][0].StopAreaName}</h3>
-      <h3>Ska gå {commutes['Buses'][0].TimeTabledDateTime}</h3>
-      <h3>Förväntad {commutes['Buses'][0].ExpectedDateTime}</h3>
-      <h3>om {timeTableLeaving}</h3>
-    </section>
-  )
+  return <div>Loading...</div>;
 }
