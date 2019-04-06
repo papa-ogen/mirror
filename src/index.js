@@ -26,6 +26,7 @@ app.get(`/weather`, async (req, res, next) => {
 
 app.get(`/commutes`, async (req, res, next) => {
   const { commutes } = await getCommute();
+  commutes.now = Date.now();
   db.get('commutes')
     .push(commutes)
     .write();
@@ -46,7 +47,7 @@ app.get(`/namedays/:date`, async (req, res, next) => {
 
 // Todo: move this
 io.on('connection', () => {
-  console.log('a user is connected...');
+  console.log('a user is connected...'); // eslint-disable-line
   const { weather } = db.value();
   io.emit('weather-response', weather[weather.length - 1]);
 
@@ -64,7 +65,7 @@ cron.schedule(`0 */6 * * *`, () => {
   const weatherRes = runWeatherCron(io);
   weatherRes.then(weather => {
     io.emit('weather-response', weather);
-    console.log(`⏲️ RUNNING THE CRON SENDING WEATHER @${d.getHours()}:${d.getMinutes()} - `, weather);
+    console.log(`⏲️ RUNNING THE CRON SENDING WEATHER @${d.getHours()}:${d.getMinutes()} - `, weather);  // eslint-disable-line
   });
 });
 
@@ -76,9 +77,30 @@ cron.schedule(`0 0 * * *`, () => {
   const match = nameDays.find(day => day.date === dateId);
 
   io.emit('nameday-response', match);
-  console.log(`⏲️ RUNNING THE CRON SENDING NAMEDAY @${d.getHours()}:${d.getMinutes()}`);
+  console.log(`⏲️ RUNNING THE CRON SENDING NAMEDAY @${d.getHours()}:${d.getMinutes()}`);  // eslint-disable-line
+});
+
+// Todo: move this
+// At every minute past every hour from 7 through 9 on every day-of-week from Monday through Friday.
+cron.schedule(`* 7-9 * * 1-5`, () => {
+  getCommute().then(res => {
+    const d = new Date();
+    res.commutes.now = Date.now();
+    io.emit('commutes-response', res.commutes);
+    console.log(`⏲️ RUNNING THE CRON SENDING MORNING COMMUTES @${d.getHours()}:${d.getMinutes()}`);  // eslint-disable-line
+  });
+});
+
+// At every 15th minute from 0 through 59 past every hour from 9 through 22 on every day-of-week from Monday through Friday.
+cron.schedule(`0/15 9-22 * * *`, () => {
+  getCommute().then(res => {
+    const d = new Date();
+    res.commutes.now = Date.now();
+    io.emit('commutes-response', res.commutes);
+    console.log(`⏲️ RUNNING THE CRON SENDING COMMUTES @${d.getHours()}:${d.getMinutes()}`);  // eslint-disable-line
+  });
 });
 
 http.listen(process.env.PORT, () => {
-  console.log(`App running on port http://localhost:${process.env.PORT}`);
+  console.log(`App running on port http://localhost:${process.env.PORT}`);  // eslint-disable-line
 });

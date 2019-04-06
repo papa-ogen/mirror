@@ -3,6 +3,7 @@ import { distanceInWords } from 'date-fns';
 import sv from 'date-fns/locale/sv';
 import PropTypes from 'prop-types';
 import { useHttp } from '../hooks/http';
+import { useTimer } from '../hooks/timer';
 import socket from '../socket';
 import { formatTimeStamp } from '../utils/date';
 
@@ -28,34 +29,45 @@ Module.propTypes = {
 export default function Commute() {
   const [commutes, setCommutes] = useState(null);
   const [isLoading, fetchedData] = useHttp('http://localhost:9696/commutes');
+  const [timer] = useTimer(1000 * 60);
 
   useEffect(() => {
-    socket.on('commute-response', payload => {
+    socket.on('commutes-response', payload => {
       setCommutes(payload);
     });
   }, {});
 
   if (commutes) {
     const commutesMarkup = commutes.Buses.map(commute => <Module commute={commute} />);
+    const lastFetched = distanceInWords(new Date(commutes.now), new Date(), { locale: sv });
+
+    if (!commutes.Buses.length) {
+      return <div>Hittar inga rutter</div>;
+    }
     return (
       <section className="module">
         <h1>{commutes.Buses[0].StopAreaName}</h1>
         {commutesMarkup}
         <span>
-          <b>Senast hämtad...</b> <br /> ... sen
+          <b>Senast hämtad...</b> <br /> {lastFetched} sen
         </span>
       </section>
     );
   }
 
   if (!isLoading && fetchedData && fetchedData.Buses) {
-    const commutesMarkup = fetchedData.Buses.map(commute => <Module commute={commute} />);
+    const commutesMarkup = fetchedData.Buses.map((commute, i) => <Module key={i} commute={commute} />);
+    const lastFetched = distanceInWords(new Date(fetchedData.now), new Date(timer.now), { locale: sv });
+
+    if (!fetchedData.Buses.length) {
+      return <div>Hittar inga rutter</div>;
+    }
     return (
       <section className="module">
         <h1>{fetchedData.Buses[0].StopAreaName}</h1>
         {commutesMarkup}
         <span>
-          <b>Senast hämtad...</b> <br /> ... sen
+          <b>Senast hämtad...</b> <br /> {lastFetched} sen
         </span>
       </section>
     );

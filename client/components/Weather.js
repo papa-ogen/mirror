@@ -2,11 +2,12 @@ import { useEffect, useState } from 'react';
 import { distanceInWords } from 'date-fns';
 import sv from 'date-fns/locale/sv';
 import PropTypes from 'prop-types';
+import { useTimer } from '../hooks/timer';
 import { useHttp } from '../hooks/http';
 import socket from '../socket';
 
-const Module = ({ weather }) => {
-  const lastFetched = distanceInWords(new Date(weather.now), new Date(), { locale: sv });
+const Module = ({ weather, now }) => {
+  const lastFetched = distanceInWords(new Date(weather.now), new Date(now), { locale: sv });
 
   return (
     <section className="module weather">
@@ -24,11 +25,13 @@ const Module = ({ weather }) => {
 
 Module.propTypes = {
   weather: PropTypes.object,
+  now: PropTypes.number,
 };
 
 export default function Weather() {
   const [weather, setWeather] = useState(null);
   const [isLoading, fetchedData] = useHttp('http://localhost:9696/weather');
+  const [timer] = useTimer(1000 * 60);
 
   useEffect(() => {
     socket.on('weather-response', payload => {
@@ -41,7 +44,7 @@ export default function Weather() {
   }
 
   if (!isLoading && fetchedData && fetchedData.now) {
-    return <Module weather={fetchedData} />;
+    return <Module weather={fetchedData} now={timer.now} />;
   }
 
   return <div>Loading...</div>;

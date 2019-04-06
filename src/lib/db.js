@@ -1,9 +1,9 @@
 import low from 'lowdb';
 import FileSync from 'lowdb/adapters/FileSync';
 
-const adapter = new FileSync('data/db.json');
+const adapter = new FileSync('data/weather.json');
 const db = low(adapter);
-db.defaults({ weather: [], commutes: [] }).write();
+db.defaults({ weather: [] }).write();
 
 export default db;
 

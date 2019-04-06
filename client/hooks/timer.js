@@ -8,6 +8,7 @@ export const useTimer = interval => {
     weekday: init.getDay(),
     month: init.getMonth(),
     date: init.getDate(),
+    now: Date.now(),
   });
 
   useEffect(() => {
@@ -19,6 +20,7 @@ export const useTimer = interval => {
         weekday: d.getDay(),
         month: d.getMonth(),
         date: d.getDate(),
+        now: Date.now(),
       });
     }, interval);
 
