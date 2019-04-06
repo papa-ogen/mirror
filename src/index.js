@@ -28,7 +28,7 @@ app.get(`/commutes`, async (req, res, next) => {
   const { commutes } = await getCommute();
   commutes.now = Date.now();
   commutesDb
-    .get('commutes')
+      .get('commutes')
     .push(commutes)
     .write();
   res.json(commutes);
@@ -61,6 +61,7 @@ io.on('connection', () => {
 });
 
 // Todo: move this
+// At minute 0 past every 6th hour from 0 through 23
 cron.schedule(`0 */6 * * *`, () => {
   const d = new Date();
   const weatherRes = runWeatherCron(io);
@@ -71,6 +72,7 @@ cron.schedule(`0 */6 * * *`, () => {
 });
 
 // Todo: move this
+// At 00:00
 cron.schedule(`0 0 * * *`, () => {
   const { nameDays } = namedaysDb.value();
   const d = new Date();
