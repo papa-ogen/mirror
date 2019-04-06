@@ -3,9 +3,9 @@ import express from 'express';
 import cors from 'cors';
 import cron from 'node-cron';
 import { runWeatherCron } from './lib/cron';
-import db, { namedaysDb, commutesDb } from './lib/db';
+import routes from './routes/routes';
+import db, { namedaysDb } from './lib/db';
 import { getCommute } from './lib/commute';
-import { getWeather } from './lib/weather';
 
 const app = express();
 const http = require('http').Server(app);
@@ -15,36 +15,7 @@ dotenv();
 
 app.use(cors());
 
-app.get(`/weather`, async (req, res, next) => {
-  const weather = await getWeather();
-  db.get('weather')
-    .push(weather)
-    .write();
-
-  res.json(weather);
-});
-
-app.get(`/commutes`, async (req, res, next) => {
-  const { commutes } = await getCommute();
-  commutes.now = Date.now();
-  commutesDb
-      .get('commutes')
-    .push(commutes)
-    .write();
-  res.json(commutes);
-});
-
-app.get(`/namedays`, async (req, res, next) => {
-  const { nameDays } = namedaysDb.value();
-  res.json(nameDays);
-});
-
-app.get(`/namedays/:date`, async (req, res, next) => {
-  const { nameDays } = namedaysDb.value();
-
-  const match = nameDays.find(day => day.date === req.params.date);
-  res.json(match);
-});
+app.use('/', routes);
 
 // Todo: move this
 io.on('connection', () => {
