@@ -3,7 +3,7 @@ import express from 'express';
 import cors from 'cors';
 import cron from 'node-cron';
 import { runWeatherCron } from './lib/cron';
-import db, { namedaysDb } from './lib/db';
+import db, { namedaysDb, commutesDb } from './lib/db';
 import { getCommute } from './lib/commute';
 import { getWeather } from './lib/weather';
 
@@ -27,7 +27,8 @@ app.get(`/weather`, async (req, res, next) => {
 app.get(`/commutes`, async (req, res, next) => {
   const { commutes } = await getCommute();
   commutes.now = Date.now();
-  db.get('commutes')
+  commutesDb
+    .get('commutes')
     .push(commutes)
     .write();
   res.json(commutes);
