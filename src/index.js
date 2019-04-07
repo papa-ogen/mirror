@@ -1,4 +1,3 @@
-import { config as dotenv } from 'dotenv';
 import express from 'express';
 import cors from 'cors';
 import cron from 'node-cron';
@@ -10,8 +9,6 @@ import { getCommute } from './lib/commute';
 const app = express();
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
-
-dotenv();
 
 app.use(cors());
 
