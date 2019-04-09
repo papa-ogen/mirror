@@ -1,11 +1,12 @@
-import Head from 'next/head'
+import Head from 'next/head';
 import Weather from '../components/Weather';
+import WeatherChart from '../components/WeatherChart';
 import Commute from '../components/Commute';
 import Clock from '../components/Clock';
 
 function IndexPage() {
   return (
-    <main className='main'>
+    <main className="main">
       <Head>
         <title>Magic Mirror</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
@@ -13,17 +14,18 @@ function IndexPage() {
         <link href="/static/index.css" rel="stylesheet" />
       </Head>
 
-      <div className='main-item'>
+      <div className="main-item">
         <Weather />
+        {/* <WeatherChart /> */}
       </div>
-      <div className='main-item'>
+      <div className="main-item">
         <Clock />
       </div>
-      <div className='main-item'>
+      <div className="main-item">
         <Commute />
       </div>
     </main>
-  )
+  );
 }
 
-export default IndexPage
+export default IndexPage;
