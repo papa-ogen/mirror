@@ -32,11 +32,8 @@ io.on('connection', () => {
 // Todo: move this
 // At minute 0 past every 6th hour from 0 through 23
 cron.schedule(`0 */6 * * *`, () => {
-  const weatherRes = runWeatherCron(io);
-  weatherRes.then(weather => {
-    io.emit('weather-response', weather);
-    console.log(`⏲️ RUNNING THE CRON SENDING WEATHER @${formatTime()} - `, weather);  // eslint-disable-line
-  });
+  console.log('skickas väder?')
+  runWeatherCron(io);
 });
 
 // Todo: move this

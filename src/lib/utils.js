@@ -4,5 +4,5 @@ export const formatTime = (d = new Date()) => {
   const minute = m < 10 ? `0${m}` : m;
   const hour = h < 10 ? `0${h}` : h;
 
-  return `${minute}:${hour}`;
+  return `${hour}:${minute}`;
 };
