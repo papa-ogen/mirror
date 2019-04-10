@@ -1,3 +1,4 @@
+import { config as dotenv } from 'dotenv';
 import express from 'express';
 import cors from 'cors';
 import cron from 'node-cron';
@@ -6,6 +7,8 @@ import routes from './routes';
 import db, { namedaysDb } from './lib/db';
 import { getCommute } from './lib/commute';
 import { formatTime } from './lib/utils';
+
+dotenv();
 
 const app = express();
 const http = require('http').Server(app);

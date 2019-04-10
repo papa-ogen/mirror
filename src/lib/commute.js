@@ -1,11 +1,6 @@
-import { config as dotenv } from 'dotenv';
 import { getData } from './getData';
 
-dotenv();
-
-const apiKey = process.env.TRAFIKLAB_API_KEY;
-const apiUrl = process.env.TRAFIKLAB_URL;
-const siteIdUrl = process.env.TRAFIKLAB_SITEID_FINDER;
+const { TRAFIKLAB_API_KEY, TRAFIKLAB_URL, TRAFIKLAB_SITEID_FINDER } = process.env;
 const siteId = 5857;
 const ALLOWED_TRIP_TYPES = ['Metros', 'Buses', 'Trains'];
 
@@ -44,7 +39,7 @@ export const filterCommutes = commutes =>
     return acc;
   }, {});
 export async function getCommute() {
-  const requestUrl = `${apiUrl}?key=${apiKey}&siteid=${siteId}`;
+  const requestUrl = `${TRAFIKLAB_URL}?key=${TRAFIKLAB_API_KEY}&siteid=${siteId}`;
   const commutesData = await getData(requestUrl);
   const filteredCommutes = filterAllowedTripTypes(commutesData.ResponseData, ALLOWED_TRIP_TYPES);
   const commutes = filterCommutes(filteredCommutes);
@@ -54,7 +49,7 @@ export async function getCommute() {
 }
 
 export async function getCommuteSiteIds(searchstring) {
-  const siteIdrequestUrl = `${siteIdUrl}?key=${apiKey}&searchstring=${searchstring}`;
+  const siteIdrequestUrl = `${TRAFIKLAB_SITEID_FINDER}?key=${TRAFIKLAB_API_KEY}&searchstring=${searchstring}`;
   const data = await getData(siteIdrequestUrl);
   return {
     data,

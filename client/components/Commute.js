@@ -56,7 +56,7 @@ export default function Commute() {
   }
 
   if (!isLoading && fetchedData && fetchedData.Buses) {
-    const commutesMarkup = fetchedData.Buses.map((commute, i) => <Module key={i} commute={commute} />);
+    const commutesMarkup = fetchedData.Buses.slice(0, 5).map((commute, i) => <Module key={i} commute={commute} />);
     const lastFetched = distanceInWords(new Date(fetchedData.now), new Date(timer.now), { locale: sv });
 
     if (!fetchedData.Buses.length) {

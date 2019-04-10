@@ -1,7 +1,4 @@
-import { config as dotenv } from 'dotenv';
 import { getData } from './getData';
-
-dotenv();
 
 const getIconCssClass = iconCode => {
   switch (iconCode) {

@@ -14,8 +14,3 @@ export async function runWeatherCron(io) {
     console.log(`⏲️ RUNNING THE CRON SENDING WEATHER @${formatTime()} - `, weather);  // eslint-disable-line
   });
 }
-
-// cron.schedule(`0 */6 * * *`, () => {
-//   console.log(`RUNNING THE CRON`);
-//   runWeatherCron();
-// });
