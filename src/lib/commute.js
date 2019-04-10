@@ -1,4 +1,7 @@
+import { config as dotenv } from 'dotenv';
 import { getData } from './getData';
+
+dotenv();
 
 const { TRAFIKLAB_API_KEY, TRAFIKLAB_URL, TRAFIKLAB_SITEID_FINDER } = process.env;
 const siteId = 5857;

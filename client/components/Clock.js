@@ -35,7 +35,7 @@ Module.propTypes = {
 export default function Clock() {
   const [nameday, setNameday] = useState(null);
   const [clock] = useTimer(3000);
-  const d = new Date()
+  const d = new Date();
   const [isLoading, fetchedData] = useHttp(`http://localhost:9696/namedays/${d.getDate()}.${d.getMonth() + 1}`);
 
   useEffect(() => {

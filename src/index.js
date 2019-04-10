@@ -74,6 +74,8 @@ cron.schedule(`0/15 9-22 * * *`, () => {
   });
 });
 
-http.listen(process.env.PORT, () => {
-  console.log(`App running on port http://localhost:${process.env.PORT}`);  // eslint-disable-line
+const PORT = process.env.PORT || 6969;
+
+http.listen(PORT, () => {
+  console.log(`App running on port http://localhost:${PORT}`);  // eslint-disable-line
 });

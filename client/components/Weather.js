@@ -37,7 +37,7 @@ export default function Weather() {
     socket.on('weather-response', payload => {
       setWeather(payload);
     });
-  }, {});
+  }, []);
 
   if (weather) {
     return <Module weather={weather} now={timer.now} />;

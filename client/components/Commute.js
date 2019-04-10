@@ -35,7 +35,7 @@ export default function Commute() {
     socket.on('commutes-response', payload => {
       setCommutes(payload);
     });
-  }, {});
+  }, []);
 
   if (commutes) {
     const commutesMarkup = commutes.Buses.map(commute => <Module commute={commute} />);
