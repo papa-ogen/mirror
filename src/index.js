@@ -18,8 +18,12 @@ app.use('/', routes);
 // Todo: move this
 io.on('connection', () => {
   console.log('a user is connected...'); // eslint-disable-line
-  const { weather } = db.value();
-  io.emit('weather-response', weather[weather.length - 1]);
+  const weather = db
+    .get('weather')
+    .last()
+    .value();
+
+  io.emit('weather-response', weather);
 
   const { nameDays } = namedaysDb.value();
   const d = new Date();
@@ -32,7 +36,7 @@ io.on('connection', () => {
 // Todo: move this
 // At minute 0 past every 6th hour from 0 through 23
 cron.schedule(`0 */6 * * *`, () => {
-  console.log('skickas väder?')
+  console.log('skickas väder?');
   runWeatherCron(io);
 });
 

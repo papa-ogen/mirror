@@ -40,7 +40,7 @@ export default function Weather() {
   }, {});
 
   if (weather) {
-    return <Module weather={weather} />;
+    return <Module weather={weather} now={timer.now} />;
   }
 
   if (!isLoading && fetchedData && fetchedData.now) {
