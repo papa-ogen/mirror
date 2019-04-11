@@ -76,6 +76,7 @@ ul, li, ol {
 .weather img {
   width: 200px;
   margin: -68px;
+  padding: 1rem 0 0;
 }
 
 @keyframes colorfade {

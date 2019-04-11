@@ -39,7 +39,6 @@ io.on('connection', () => {
 // Todo: move this
 // At minute 0 past every 6th hour from 0 through 23
 cron.schedule(`0 */6 * * *`, () => {
-  console.log('skickas väder?');
   runWeatherCron(io);
 });
 
@@ -57,7 +56,7 @@ cron.schedule(`0 0 * * *`, () => {
 
 // Todo: move this
 // At every minute past every hour from 7 through 9 on every day-of-week from Monday through Friday.
-cron.schedule(`* 7-9 * * 1-5`, () => {
+cron.schedule(`* 6-9 * * 1-5`, () => {
   getCommute().then(res => {
     res.commutes.now = Date.now();
     io.emit('commutes-response', res.commutes);

@@ -38,7 +38,7 @@ export default function Commute() {
   }, []);
 
   if (commutes) {
-    const commutesMarkup = commutes.Buses.map(commute => <Module commute={commute} />);
+    const commutesMarkup = commutes.Buses.slice(0, 5).map(commute => <Module commute={commute} />);
     const lastFetched = distanceInWords(new Date(commutes.now), new Date(), { locale: sv });
 
     if (!commutes.Buses.length) {
