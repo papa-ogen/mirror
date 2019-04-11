@@ -10,6 +10,7 @@ body {
   background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;  
+    background-attachment: fixed;
 }
 
 ul, li, ol {
@@ -85,5 +86,11 @@ ul, li, ol {
   }
   to {
     color: #000;
+  }
+}
+
+@media (max-width: 500px) {
+  .main {
+    grid-template-columns: 1fr;
   }
 }
