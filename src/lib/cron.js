@@ -1,9 +1,9 @@
 import cron from 'node-cron';
 import db from './db';
-import { getWeather } from './weather';
+import { fetchWeather } from './weather';
 
 export async function runWeatherCron(io) {
-  const [weather] = await Promise.all([getWeather()]);
+  const [weather] = await Promise.all([fetchWeather()]);
 
   db.get('weather')
     .push(weather)

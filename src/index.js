@@ -4,8 +4,9 @@ import cors from 'cors';
 import cron from 'node-cron';
 import { runWeatherCron } from './lib/cron';
 import routes from './routes';
-import db, { namedaysDb } from './lib/db';
 import { getCommute } from './lib/commute';
+import { getWeather } from './lib/weather';
+import { getTodaysNameday } from './lib/nameDays';
 import { formatTime } from './lib/utils';
 
 dotenv();
@@ -18,43 +19,24 @@ app.use(cors());
 
 app.use('/', routes);
 
-// Todo: move this
 io.on('connection', () => {
   console.log('a user is connected...'); // eslint-disable-line
-  const weather = db
-    .get('weather')
-    .last()
-    .value();
 
-  io.emit('weather-response', weather);
-
-  const { nameDays } = namedaysDb.value();
-  const d = new Date();
-  const dateId = `${d.getDate()}.${d.getMonth() + 1}`;
-  const match = nameDays.find(day => day.date === dateId);
-
-  io.emit('nameday-response', match);
+  io.emit('weather-response', getWeather());
+  io.emit('nameday-response', getTodaysNameday());
 });
 
-// Todo: move this
 // At minute 0 past every 6th hour from 0 through 23
 cron.schedule(`0 */6 * * *`, () => {
   runWeatherCron(io);
 });
 
-// Todo: move this
 // At 00:00
 cron.schedule(`0 0 * * *`, () => {
-  const { nameDays } = namedaysDb.value();
-  const d = new Date();
-  const dateId = `${d.getDate()}.${d.getMonth() + 1}`;
-  const match = nameDays.find(day => day.date === dateId);
-
-  io.emit('nameday-response', match);
+  io.emit('nameday-response', getTodaysNameday());
   console.log(`⏲️ RUNNING THE CRON SENDING NAMEDAY @${formatTime()}`);  // eslint-disable-line
 });
 
-// Todo: move this
 // At every minute past every hour from 7 through 9 on every day-of-week from Monday through Friday.
 cron.schedule(`* 6-9 * * 1-5`, () => {
   getCommute().then(res => {

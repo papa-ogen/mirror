@@ -1,4 +1,5 @@
 import { getData } from './getData';
+import db from './db';
 
 const getIconCssClass = iconCode => {
   switch (iconCode) {
@@ -61,7 +62,7 @@ const translateWeatherType = type => {
   }
 };
 
-export async function getWeather() {
+export const fetchWeather = async () => {
   const { WEATHER_API_KEY, WEATHER_URL } = process.env;
   const lat = '59.3833';
   const lon = '17.8333';
@@ -76,4 +77,10 @@ export async function getWeather() {
     icon: getIconCssClass(data.weather[0].icon),
     now: Date.now(),
   };
-}
+};
+
+export const getWeather = async () =>
+  db
+    .get('weather')
+    .last()
+    .value();

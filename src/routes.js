@@ -1,12 +1,12 @@
 import express from 'express';
 import db, { namedaysDb, commutesDb } from './lib/db';
 import { getCommute } from './lib/commute';
-import { getWeather } from './lib/weather';
+import { fetchWeather } from './lib/weather';
 
 const router = express.Router();
 
 router.get(`/weather`, async (req, res, next) => {
-  const weather = await getWeather();
+  const weather = await fetchWeather();
   db.get('weather')
     .push(weather)
     .write();
