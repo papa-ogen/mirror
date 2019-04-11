@@ -47,7 +47,7 @@ cron.schedule(`* 6-9 * * 1-5`, () => {
 });
 
 // At every 15th minute from 0 through 59 past every hour from 9 through 22 on every day-of-week from Monday through Friday.
-cron.schedule(`0/15 9-22 * * *`, () => {
+cron.schedule(`*/15 9-22 * * *`, () => {
   getCommute().then(res => {
     res.commutes.now = Date.now();
     io.emit('commutes-response', res.commutes);
