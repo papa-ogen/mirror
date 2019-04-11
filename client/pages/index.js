@@ -18,7 +18,7 @@ function IndexPage() {
         <Weather />
         {/* <WeatherChart /> */}
       </div>
-      <div className="main-item">
+      <div className="main-item center-item">
         <Clock />
       </div>
       <div className="main-item">

@@ -93,4 +93,7 @@ ul, li, ol {
   .main {
     grid-template-columns: 1fr;
   }
+  .center-item {
+    grid-row-start: 1;
+  }
 }
