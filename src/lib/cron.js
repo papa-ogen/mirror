@@ -1,6 +1,6 @@
-import cron from 'node-cron';
 import db from './db';
 import { fetchWeather } from './weather';
+import { formatTime } from './utils';
 
 export async function runWeatherCron(io) {
   const [weather] = await Promise.all([fetchWeather()]);
