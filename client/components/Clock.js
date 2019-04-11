@@ -48,7 +48,7 @@ export default function Clock() {
     return <div>Loading...</div>;
   }
 
-  if (!isLoading && fetchedData && fetchedData.date) {
+  if (!isLoading && fetchedData && fetchedData.names) {
     return <Module clock={clock} nameday={fetchedData} />;
   }
 
